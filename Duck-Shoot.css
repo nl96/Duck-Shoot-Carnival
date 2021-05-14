@@ -1,6 +1,9 @@
-:root{
-	--main-length-min: 100vmin;
-	--main-width: calc((var(--main-length-min, 600px) - 16px) * (75 / 104));
+@charset "UTF-8";
+
+:root {
+	--main-time-out-game: 7s;
+	/* --main-length-min: 100vmin; */
+	--main-width: calc((var(--main-length-min, 640px) - 16px) * (75 / 104));
 	--fila-heigh: calc(var(--main-width) / 5);
 	--pato-lengthsquare: calc(var(--fila-heigh) * (4 / 5));
 	--pelota-lengthsquare: calc(var(--fila-heigh) / 4);
@@ -9,9 +12,14 @@
 	--shadow-length-4: calc(var(--fila-heigh) / 15);
 	--shadow-length-8: calc(var(--fila-heigh) * (2 / 15));
 	--pelota-shandow: var(--shadow-length-1) var(--shadow-length-4) var(--shadow-length-1) 0px #0008, inset calc(var(--shadow-length-1) * -1) calc(var(--shadow-length-4) * -1) var(--shadow-length-2) calc(var(--shadow-length-2) * -1) #0008;
+	--trans-time: .3s;
+	--trans-opacity: opacity var(--trans-time) ease-in-out;
+	--trans-delay-vis: visibility 0s linear var(--trans-time);
 }
 
-body{margin: 8px;}
+body {
+	margin: 8px;
+}
 
 #Carnival-Booth {
 	position: relative;
@@ -21,22 +29,23 @@ body{margin: 8px;}
 	overflow: hidden;
 }
 
-/* Patron principal */
+/* Patrón principal */
 #techo, #pared {
-background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
-			linear-gradient(90deg,
-				red 0, red calc(100% / 9), white 0, white calc(200% / 9),
-				red 0, red calc(300% / 9), white 0, white calc(400% / 9),
-				red 0, red calc(500% / 9), white 0, white calc(600% / 9),
-				red 0, red calc(700% / 9), white 0, white calc(800% / 9),
-				red 0, red 100%);
+	background: linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
+				linear-gradient(90deg, red 0, red calc(100% / 9), white 0, white calc(200% / 9),
+									   red 0, red calc(300% / 9), white 0, white calc(400% / 9),
+									   red 0, red calc(500% / 9), white 0, white calc(600% / 9),
+									   red 0, red calc(700% / 9), white 0, white calc(800% / 9),
+									   red 0, red 100%);
 }
+
 #techo {
 	display: flex;
 	width: 100%;
 	height: var(--fila-heigh);
 }
-.lr, .lb {
+
+#techo div {
 	display: block;
 	float: left;
 	width: calc(100% / 9);
@@ -48,12 +57,13 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	box-shadow: var(--shadow-length-1) var(--shadow-length-1) var(--shadow-length-1) #0008;
 	z-index: 2;
 	transform-origin: 0% 0%;
-	animation: viento 10s ease-in-out infinite alternate;
+	animation: brisa 10s ease-in-out infinite alternate;
 }
-.lr {background-color: #ea0000;border-top-color: #ea0000;}
-.lb {background-color: #eaeaea;border-top-color: #eaeaea;}
+#techo div:nth-child(odd) {background-color: #ea0000; border-top-color: #ea0000;}
+#techo div:nth-child(even) {background-color: #eaeaea; border-top-color: #eaeaea;}
 
-@keyframes viento {
+/* Efecto de viento suave */
+@keyframes brisa {
 	  0% {transform: scaleY(1.00);}
 	  2% {transform: scaleY(0.98);}
 	  4% {transform: scaleY(1.00);}
@@ -106,21 +116,21 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	 98% {transform: scaleY(0.99);}
 	100% {transform: scaleY(1.00);}
 }
-#techo div:nth-of-type(1) {animation-delay:  0.0s;}
-#techo div:nth-of-type(2) {animation-delay:  0.1s;}
-#techo div:nth-of-type(3) {animation-delay:  0.2s;}
-#techo div:nth-of-type(4) {animation-delay:  0.3s;}
-#techo div:nth-of-type(5) {animation-delay: -3.0s;}
-#techo div:nth-of-type(6) {animation-delay: -2.9s;}
-#techo div:nth-of-type(7) {animation-delay: -2.7s;}
-#techo div:nth-of-type(8) {animation-delay: -2.6s;}
-#techo div:nth-of-type(9) {animation-delay: -2.5s;}
+#techo div:nth-child(1) {animation-delay:  0.0s;}
+#techo div:nth-child(2) {animation-delay:  0.1s;}
+#techo div:nth-child(3) {animation-delay:  0.2s;}
+#techo div:nth-child(4) {animation-delay:  0.3s;}
+#techo div:nth-child(5) {animation-delay: -3.0s;}
+#techo div:nth-child(6) {animation-delay: -2.9s;}
+#techo div:nth-child(7) {animation-delay: -2.7s;}
+#techo div:nth-child(8) {animation-delay: -2.6s;}
+#techo div:nth-child(9) {animation-delay: -2.5s;}
 
-/* Zona de los objetivos */
+/* Zona de objetivos */
 #game {
-	width:100%;
+	width: 100%;
 	background-color: skyblue;
-	position:relative;
+	position: relative;
 }
 
 /* Zonas de desplazamiento de los patos */
@@ -128,58 +138,6 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	position: relative;
 	width: 100%;
 	height: auto;
-}
-
-/* Figura del pato */
-.Pato{
-	display: block;
-	width: var(--pato-lengthsquare);
-	height: var(--pato-lengthsquare);
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
-	background-image: url(duck.svg);
-	background-size: contain;
-	background-repeat: no-repeat;
-	border-radius: 100%;
-	border-radius: 40% 60% 50% 50% / 40% 60%;
-	animation: anim 8s linear 0s infinite normal;
-	transform-origin: 50% 100%;
-	transition: opacity .6s ease-in-out, bottom .4s linear;
-}
-/* Animación del pato */
-@keyframes anim {
-	 0%   {left: 0%; transform: scalex(-1);}
-	10%   {left: 20%;}
-	20%   {left: 60%;}
-	30%   {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(-1);}
-	30.5% {transform: scalex(1);}
-	47.5% {left: 20%;}
-	50%   {left: 20%;}
-	52.5% {left: 20%; transform: scalex(1);}
-	53%   {transform: scalex(-1);}
-	70%   {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(-1);}
-	70.5% {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(1);}
-	80%   {left: 60%;}
-	90%   {left: 20%;}
-	100%  {left: 0%; transform: scalex(1);}
-}
-#Fila1 .Pato{animation-delay: -2s;transform: scalex(-1);}
-#Fila2 .Pato{animation-delay: -8s;}
-#Fila3 .Pato{animation-delay: -13s;}
-
-/* Interacción del pato */
-.Pato .acertar {
-	border-radius: 100%;
-	border-radius: 40% 60% 50% 50% / 40% 60%;
-	overflow: hidden;
-}
-.Pato label {
-	display: none;
-	width: var(--pato-lengthsquare);
-	height: var(--pato-lengthsquare);
-	cursor: inherit;
 }
 
 /* Fondo del pato */
@@ -195,42 +153,98 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 #Fila1 .fondo {border-top: none; height: calc(var(--fila-heigh) * (13 / 12));}
 #Fila3 .fondo {border-bottom: none;}
 
+/* Figura del pato */
+.Pato {
+	display: block;
+	width: var(--pato-lengthsquare);
+	height: var(--pato-lengthsquare);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+	background-image: url(duck.svg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	border-radius: 100%;
+	border-radius: 40% 60% 50% 50% / 40% 60%;
+	animation: anim 8s linear 0s infinite normal;
+	transform-origin: 50% 100%;
+}
+
+/* Animación del pato */
+@keyframes anim {
+	0%    {left: 0%; transform: scalex(-1);}
+	10%   {left: 20%;}
+	20%   {left: 60%;}
+	30%   {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(-1);}
+	30.5% {transform: scalex(1);}
+	47.5% {left: 20%;}
+	52.5% {left: 20%; transform: scalex(1);}
+	53%   {transform: scalex(-1);}
+	70%   {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(-1);}
+	70.5% {left: calc(100% - var(--pato-lengthsquare)); transform: scalex(1);}
+	80%   {left: 60%;}
+	90%   {left: 20%;}
+	99.5% {transform: scalex(1);}
+	100%  {left: 0%; transform: scalex(-1);}
+}
+#Fila1 .Pato {animation-delay: -2s; transform: scalex(-1);}
+#Fila2 .Pato {animation-delay: -8s;}
+#Fila3 .Pato {animation-delay: -13s;}
+
+/* Interacción del pato */
+.Pato .acertar {
+	border-radius: inherit;
+	height: inherit;
+	overflow: hidden;
+}
+
+.Pato .acertar label {
+	display: none;
+}
+
 /* Interacción del fondo */
 .errar label {
 	display: none;
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 100%;
-	height: 100%;
-	cursor: inherit;
 }
 
-/* Lugar donde se ubican las pelotas */
+/* Zona de pelotas */
 #mostrador {
 	position: relative;
-	width: 100%;
 	height: calc(var(--fila-heigh) / 2);
 	background-color: #d79143;
 	border-bottom: calc(var(--fila-heigh) / 12) solid #a86227;
 	box-shadow: inset 0px calc(var(--shadow-length-1) * -1) var(--shadow-length-1) #0002;
 }
+
 .pelota {
-	position: absolute;
 	display: block;
+	position: absolute;
 	width: var(--pelota-lengthsquare);
 	height: var(--pelota-lengthsquare);
 	margin: calc(var(--pelota-lengthsquare) * (8 / 15));
 	border-radius: 100%;
 	background-color: whitesmoke;
 	box-shadow: var(--pelota-shandow);
-	transition: opacity .3s ease-in-out, visibility 0s linear 0s;
+	transition: var(--trans-opacity);
 }
-.pelota:hover {cursor: -webkit-grab; cursor: grab; background-color: white;}
-.pelota:active {cursor: -webkit-grabbing; cursor: grabbing;}
-.pelota:nth-of-type(1) {left: 36%; margin: calc(var(--pelota-lengthsquare) * (2 / 15));}
-.pelota:nth-of-type(2) {left: 43%;}
-.pelota:nth-of-type(3) {left: 50%; margin: calc(var(--pelota-lengthsquare) * (3 / 15));}
+#mostrador .pelota:nth-child(1) {left: 36%; margin: calc(var(--pelota-lengthsquare) * (2 / 15));}
+#mostrador .pelota:nth-child(2) {left: 43%;}
+#mostrador .pelota:nth-child(3) {left: 50%; margin: calc(var(--pelota-lengthsquare) * (3 / 15));}
+
+.pelota:hover {
+	cursor: -webkit-grab;
+	cursor: grab; background-color: white;
+}
+
+.pelota:active {
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+}
+
 
 #pared {
 	display: flex;
@@ -239,29 +253,33 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	height: calc(var(--fila-heigh) * 2);
 	box-shadow: inset 0px var(--shadow-length-8) var(--shadow-length-8) calc(var(--fila-heigh) / -10) #0009;
 }
-/** Botón de reinicio **/
-#pared a {
-	text-decoration: none;
+
+/* Botón de reinicio */
+#pared input[type="reset"] {
+	font: italic small-caps bold calc(var(--fila-heigh) * (16 / 60))/130% 'Comic Neue', 'Comic Sans', 'Comic Sans MS', cursive;
 	color: red;
-	border: calc(var(--fila-heigh) * (1 / 60)) solid red;
 	padding: calc(var(--fila-heigh) * (3 / 60));
+	border: calc(var(--fila-heigh) * (1 / 60)) solid red;
 	border-radius: calc(var(--fila-heigh) * (3 / 60));
-	font-size: calc(var(--fila-heigh) * (16 / 60));
 	background-color: white;
 	background: linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)), linear-gradient(#FFF, #FFF);
-}
-#pared a:hover {background: linear-gradient(#FFF, #FFF);}
-
-
-/******************************************************************/
-/*                         Controles                              */
-/******************************************************************/
-
-/* Oculto casillas de verificación */
-#Carnival-Booth input[hidden] {
-	display: none;
-	visibility: hidden;
 	opacity: 0;
+	visibility: hidden;	
+}
+
+#pared input[type="reset"]:focus {
+	background: linear-gradient(#FFF, #FFF);
+	transition: var(--trans-opacity), var(--trans-delay-vis);
+}
+
+
+/**************************************************************************************************/
+/*                                           Controles                                            */
+/**************************************************************************************************/
+
+/* Oculta casillas de verificación */
+#Carnival-Booth input[hidden] {
+	display: block;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -272,42 +290,47 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	border: 0;
 	margin: 0;
 	overflow: hidden;
+	opacity: 0;
 }
-/* Quito misma pelota seleccionada */
+
+/* Muestra el botón de reinicio al iniciar el juego */
+#Carnival-Booth input:checked ~ #pared input[type="reset"] {
+	opacity: 1;
+	visibility: visible;
+	transition: var(--trans-opacity);
+}
+
+/* Efecto de quitar pelota seleccionada */
 #pelota1:checked ~ #mostrador div .pelota:nth-of-type(1),
 #pelota2:checked ~ #mostrador div .pelota:nth-of-type(2),
-#pelota3:checked ~ #mostrador div .pelota:nth-of-type(3) {transition: opacity .3s ease-in-out, visibility 0s linear 0.3s; opacity: 0; visibility: hidden;}
-
-/* Habilito los label indicado por pelota seleccionada, así evito usar la misma pelota */
-#pelota1:checked ~ #p1patoA:not(:checked) ~ #p1patoB:not(:checked) ~ #p1patoC:not(:checked) ~
-#p1errarA:not(:checked) ~ #p1errarB:not(:checked) ~ #p1errarC:not(:checked) ~ div label:nth-of-type(1),
-#pelota2:checked ~ #p2patoA:not(:checked) ~ #p2patoB:not(:checked) ~ #p2patoC:not(:checked) ~
-#p2errarA:not(:checked) ~ #p2errarB:not(:checked) ~ #p2errarC:not(:checked) ~ div label:nth-of-type(2),
-#pelota3:checked ~ #p3patoA:not(:checked) ~ #p3patoB:not(:checked) ~ #p3patoC:not(:checked) ~
-#p3errarA:not(:checked) ~ #p3errarB:not(:checked) ~ #p3errarC:not(:checked) ~ div label:nth-of-type(3) {display: block;}
-
-/* Habilito crosshair para pelotas no lanzadas */
-#pelota1:checked ~ #p1patoA:not(:checked) ~ #p1patoB:not(:checked) ~ #p1patoC:not(:checked) ~
-#p1errarA:not(:checked) ~ #p1errarB:not(:checked) ~ #p1errarC:not(:checked) ~ #game > div,
-#pelota2:checked ~ #p2patoA:not(:checked) ~ #p2patoB:not(:checked) ~ #p2patoC:not(:checked) ~
-#p2errarA:not(:checked) ~ #p2errarB:not(:checked) ~ #p2errarC:not(:checked) ~ #game > div,
-#pelota3:checked ~ #p3patoA:not(:checked) ~ #p3patoB:not(:checked) ~ #p3patoC:not(:checked) ~
-#p3errarA:not(:checked) ~ #p3errarB:not(:checked) ~ #p3errarC:not(:checked) ~ #game > div {
-	cursor: crosshair;
-	cursor: url(crosshair.svg) 24 24,auto;
+#pelota3:checked ~ #mostrador div .pelota:nth-of-type(3) {
+	opacity: 0;
+	visibility: hidden;
+	transition: var(--trans-opacity), var(--trans-delay-vis);
 }
 
-/* Pato abatido */
-#p1patoA:checked ~ div #Fila1 .Pato,
-#p2patoA:checked ~ div #Fila1 .Pato,
-#p3patoA:checked ~ div #Fila1 .Pato,
-#p1patoB:checked ~ div #Fila2 .Pato,
-#p2patoB:checked ~ div #Fila2 .Pato,
-#p3patoB:checked ~ div #Fila2 .Pato,
-#p1patoC:checked ~ div #Fila3 .Pato,
-#p2patoC:checked ~ div #Fila3 .Pato,
-#p3patoC:checked ~ div #Fila3 .Pato {background-image: url(boom-duck.svg); opacity: 0; bottom: calc(var(--pato-lengthsquare) * -1);}
+/* Habilita el label correspondiente a la pelota seleccionada y sin lanzar */
+#pelota1:checked ~ #p1patoA:not(:checked) ~ #p1patoB:not(:checked) ~ #p1patoC:not(:checked) ~ #p1errarA:not(:checked) ~ #p1errarB:not(:checked) ~ #p1errarC:not(:checked) ~ #game label:nth-of-type(1),
+#pelota2:checked ~ #p2patoA:not(:checked) ~ #p2patoB:not(:checked) ~ #p2patoC:not(:checked) ~ #p2errarA:not(:checked) ~ #p2errarB:not(:checked) ~ #p2errarC:not(:checked) ~ #game label:nth-of-type(2),
+#pelota3:checked ~ #p3patoA:not(:checked) ~ #p3patoB:not(:checked) ~ #p3patoC:not(:checked) ~ #p3errarA:not(:checked) ~ #p3errarB:not(:checked) ~ #p3errarC:not(:checked) ~ #game label:nth-of-type(3) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: crosshair;
+	cursor: url(crosshair.svg) 24 24, auto;
+}
 
+/* Efecto de pato abatido */
+[id$="patoA"]:checked ~ div #Fila1 .Pato,
+[id$="patoB"]:checked ~ div #Fila2 .Pato,
+[id$="patoC"]:checked ~ div #Fila3 .Pato {
+	background-image: url(boom-duck.svg);
+	bottom: calc(var(--pato-lengthsquare) * -1);
+	opacity: 0;
+	transition: opacity .6s ease-in-out, bottom .4s linear;
+}
+
+/* Efecto del impacto de la pelota */
 .Pato::after {
 	content: "";
 	display: block;
@@ -322,38 +345,28 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	visibility: hidden;
 	transition: top .4s linear, right .3s ease-in-out;
 }
-#p1patoA:checked ~ div #Fila1 .Pato::after,
-#p2patoA:checked ~ div #Fila1 .Pato::after,
-#p3patoA:checked ~ div #Fila1 .Pato::after,
-#p1patoB:checked ~ div #Fila2 .Pato::after,
-#p2patoB:checked ~ div #Fila2 .Pato::after,
-#p3patoB:checked ~ div #Fila2 .Pato::after,
-#p1patoC:checked ~ div #Fila3 .Pato::after,
-#p2patoC:checked ~ div #Fila3 .Pato::after,
-#p3patoC:checked ~ div #Fila3 .Pato::after {visibility: visible; right: calc(var(--pato-lengthsquare) / (16 / 11)); top: calc(var(--pato-lengthsquare) * -1);}
 
-/* Desabilito pelotas lanzadas. */
-#p1patoA:checked ~ #mostrador label:nth-of-type(1),
-#p2patoA:checked ~ #mostrador label:nth-of-type(2),
-#p3patoA:checked ~ #mostrador label:nth-of-type(3),
-#p1patoB:checked ~ #mostrador label:nth-of-type(1),
-#p2patoB:checked ~ #mostrador label:nth-of-type(2),
-#p3patoB:checked ~ #mostrador label:nth-of-type(3),
-#p1patoC:checked ~ #mostrador label:nth-of-type(1),
-#p2patoC:checked ~ #mostrador label:nth-of-type(2),
-#p3patoC:checked ~ #mostrador label:nth-of-type(3),
-/* Desabilito pelotas erradas. */
-#p1errarA:checked ~ #mostrador label:nth-of-type(1),
-#p2errarA:checked ~ #mostrador label:nth-of-type(2),
-#p3errarA:checked ~ #mostrador label:nth-of-type(3),
-#p1errarB:checked ~ #mostrador label:nth-of-type(1),
-#p2errarB:checked ~ #mostrador label:nth-of-type(2),
-#p3errarB:checked ~ #mostrador label:nth-of-type(3),
-#p1errarC:checked ~ #mostrador label:nth-of-type(1),
-#p2errarC:checked ~ #mostrador label:nth-of-type(2),
-#p3errarC:checked ~ #mostrador label:nth-of-type(3) {display:none;}
+[id$="patoA"]:checked ~ div #Fila1 .Pato::after,
+[id$="patoB"]:checked ~ div #Fila2 .Pato::after,
+[id$="patoC"]:checked ~ div #Fila3 .Pato::after {
+	top: calc(var(--pato-lengthsquare) * -1);
+	right: calc(var(--pato-lengthsquare) / (16 / 11));
+	visibility: visible;
+}
 
-/* Aviso pelotas erradas. */
+/* Deshabilita pelotas lanzadas */
+[id^="p1pato"]:checked ~ #mostrador label:nth-of-type(1),
+[id^="p2pato"]:checked ~ #mostrador label:nth-of-type(2),
+[id^="p3pato"]:checked ~ #mostrador label:nth-of-type(3),
+/* Deshabilita pelotas erradas */
+[id^="p1errar"]:checked ~ #mostrador label:nth-of-type(1),
+[id^="p2errar"]:checked ~ #mostrador label:nth-of-type(2),
+[id^="p3errar"]:checked ~ #mostrador label:nth-of-type(3) {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/* Avisa pelotas erradas */
 #pelota1:checked ~ #p1errarA:checked ~ div #Fila1 .fondo,
 #pelota2:checked ~ #p2errarA:checked ~ div #Fila1 .fondo,
 #pelota3:checked ~ #p3errarA:checked ~ div #Fila1 .fondo,
@@ -362,37 +375,17 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 #pelota3:checked ~ #p3errarB:checked ~ div #Fila2 .fondo,
 #pelota1:checked ~ #p1errarC:checked ~ div #Fila3 .fondo,
 #pelota2:checked ~ #p2errarC:checked ~ div #Fila3 .fondo,
-#pelota3:checked ~ #p3errarC:checked ~ div #Fila3 .fondo {animation: errar .2s linear 0s 3 none;}
-
-@keyframes errar {
-	  0% {background-color:red;}
-	 49% {background-color:red;}
-	 51% {background-color:white;}
-	100% {background-color:#FFF0;}
+#pelota3:checked ~ #p3errarC:checked ~ div #Fila3 .fondo {
+	animation: fallar .2s linear 0s 3 none;
 }
 
-/* Barra del tiempo */
-#Carnival-Booth input[type=radio]:checked ~ #game::before {opacity:1; background-position-x: 0;}
-
-#game::before{
-	content: "";
-	display: block;
-	width: 47.5%;
-	height: calc(var(--fila-heigh) / 5);
-	position: absolute;
-	top: calc(var(--fila-heigh) / (5 / -2));
-	left: 2.5%;
-	z-index: 3;
-	border: 1px solid black;
-	border-radius: calc(var(--fila-heigh) / 5);
-	background: linear-gradient(#FFF000, #FFF000) no-repeat, linear-gradient(black, black);
-	background-color: #FFF000;
-	background-position-x: calc(var(--main-width) / (40 / -19));
-	opacity: 0;
-	transition: opacity .3s ease-in-out, background-position-x 10s linear;
+@keyframes fallar {
+	0%, 49% {background-color: red;}
+	50%     {background-color: white;}
+	100%    {background-color: transparent;}
 }
 
-/* Desplegar icono de pato abatido */
+/* Indicador de pato abatido */
 #Fila1::before, #Fila2::before, #Fila3::before {
 	content: "";
 	cursor: default;
@@ -401,75 +394,132 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	height: calc(var(--pato-lengthsquare) / 2);
 	position: absolute;
 	left: 2.5%;
-	z-index: 5;
+	z-index: 2;
 	background-color: transparent;
 	background-image: url(duck.svg);
 	background-repeat: no-repeat;
 	background-size: contain;
 	transform-origin: 50% 100%;
 	transform: translate(50%, 50%) rotateX(-90deg);
-	opacity:0;
-	visibility:hidden;
-	transition: opacity .3s ease-in-out, transform .3s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+	/* Plegar icono de pato abatido (reinicio) */
+	transition: var(--trans-opacity), transform var(--trans-time) ease-in-out, var(--trans-delay-vis);
 }
 #Fila1::before {top: calc(var(--fila-heigh) * -1);}
 #Fila2::before {top: calc((var(--fila-heigh) * -2) - (var(--fila-heigh) * (2 / 15))); left: calc((95% / 6) + 2.5%);}
 #Fila3::before {top: calc((var(--fila-heigh) * -3) - (var(--fila-heigh) * (4 / 15))); left: calc((95% / 3) + 2.5%);}
 
-/* Desplegar primer icono para un pato abatido */
-#p1patoA:checked ~ div #Fila1::before, #p2patoA:checked ~ div #Fila1::before, #p3patoA:checked ~ div #Fila1::before,
-#p1patoB:checked ~ div #Fila1::before, #p2patoB:checked ~ div #Fila1::before, #p3patoB:checked ~ div #Fila1::before,
-#p1patoC:checked ~ div #Fila1::before, #p2patoC:checked ~ div #Fila1::before, #p3patoC:checked ~ div #Fila1::before,
-/* Desplegar segundo icono para dos patos abatidos
- A   B     A   C     B   C
- 1 | 2     1 | 2     1 | 2
- 1 | 3     1 | 3     1 | 3
- 2 | 1     2 | 1     2 | 1
- 2 | 3     2 | 3     2 | 3
- 3 | 1     3 | 1     3 | 1
- 3 | 2     3 | 2     3 | 2 */
-#p1patoA:checked ~ #p2patoB:checked ~ div #Fila2::before,
-#p1patoA:checked ~ #p3patoB:checked ~ div #Fila2::before,
-#p2patoA:checked ~ #p1patoB:checked ~ div #Fila2::before,
-#p2patoA:checked ~ #p3patoB:checked ~ div #Fila2::before,
-#p3patoA:checked ~ #p1patoB:checked ~ div #Fila2::before,
-#p3patoA:checked ~ #p2patoB:checked ~ div #Fila2::before,
+/* Despliega un icono para cada pato abatido */
+[id*="pato"]:checked ~ div #Fila1::before,
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ div #Fila2::before,
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ [id*="pato"]:checked ~ div #Fila3::before {
+	opacity: 1;
+	visibility: visible;
+	transform: translate(50%, 50%) rotateX(0deg);
+	transition: var(--trans-opacity), transform var(--trans-time) ease-in-out;
+}
 
-#p1patoA:checked ~ #p2patoC:checked ~ div #Fila2::before,
-#p1patoA:checked ~ #p3patoC:checked ~ div #Fila2::before,
-#p2patoA:checked ~ #p1patoC:checked ~ div #Fila2::before,
-#p2patoA:checked ~ #p3patoC:checked ~ div #Fila2::before,
-#p3patoA:checked ~ #p1patoC:checked ~ div #Fila2::before,
-#p3patoA:checked ~ #p2patoC:checked ~ div #Fila2::before,
+/* Bonificación y penalización de tiempo */
+[id*="pato"]:checked ~ #game {
+	--more-time: 1s;
+}
 
-#p1patoB:checked ~ #p2patoC:checked ~ div #Fila2::before,
-#p1patoB:checked ~ #p3patoC:checked ~ div #Fila2::before,
-#p2patoB:checked ~ #p1patoC:checked ~ div #Fila2::before,
-#p2patoB:checked ~ #p3patoC:checked ~ div #Fila2::before,
-#p3patoB:checked ~ #p1patoC:checked ~ div #Fila2::before,
-#p3patoB:checked ~ #p2patoC:checked ~ div #Fila2::before,
-/* Desplegar tercer icono para tres patos abatidos */
-#p1patoA:checked ~ #p2patoB:checked ~ #p3patoC:checked ~ div #Fila3::before,
-#p1patoA:checked ~ #p3patoB:checked ~ #p2patoC:checked ~ div #Fila3::before,
-#p2patoA:checked ~ #p1patoB:checked ~ #p3patoC:checked ~ div #Fila3::before,
-#p2patoA:checked ~ #p3patoB:checked ~ #p1patoC:checked ~ div #Fila3::before,
-#p3patoA:checked ~ #p1patoB:checked ~ #p2patoC:checked ~ div #Fila3::before,
-#p3patoA:checked ~ #p2patoB:checked ~ #p1patoC:checked ~ div #Fila3::before {
-	opacity:1;
-	visibility:visible;
-	transform:translate(50%, 50%) rotateX(0deg);
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ #game {
+	--more-time: 2s;
+}
+
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ [id*="pato"]:checked ~ #game {
+	--more-time: 3s;
+}
+
+[id*="errar"]:checked ~ #game {
+	--minus-time: -1s;
+}
+
+[id*="errar"]:checked ~ [id*="errar"]:checked ~ #game {
+	--minus-time: -2s;
+}
+
+[id*="errar"]:checked ~ [id*="errar"]:checked ~ [id*="errar"]:checked ~ #game {
+	--minus-time: -3s;
+}
+
+/* Indicador de tiempo sumado o restado */
+#Fila1::after {
+    content: "";
+	display: block;
+	font: normal bold calc(var(--fila-heigh) / 5)/100% 'Kulim Park', 'Comic Sans', 'Comic Sans MS', cursive;
+	position: absolute;
+	top: calc(var(--fila-heigh) / (5 / -2));
+	right: 50%;
+	width: auto;
+	height: calc(var(--fila-heigh) / 5);
+	border: calc(var(--fila-heigh) / 36) solid transparent;
+	z-index: 3;
+	opacity: 1;
+	visibility: hidden;
+	transition: opacity .2s ease-out calc(var(--trans-time) - .2s);
+}
+
+[id*="pato"]:checked:focus ~ #game #Fila1::after {
+	color: #00ff00;
+	content: "+1";
+	opacity: 0;
+	visibility: visible;
+}
+
+[id*="errar"]:checked:focus ~ #game #Fila1::after {
+	color: red;
+	content: "-1";
+	opacity: 0;
+	visibility: visible;
+}
+
+/* Barra de tiempo */
+#game::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: calc(var(--fila-heigh) / (5 / -2));
+	left: 2.5%;
+	width: 47.5%;
+	z-index: 3;
+	height: calc(var(--fila-heigh) / 5);
+	border: calc(var(--fila-heigh) / 36) solid black;
+	border-radius: calc(var(--fila-heigh) / 5);
+	background: linear-gradient(#FFF000, #FFF000) no-repeat, linear-gradient(black, black);
+	background-color: #FFF000;
+	background-position-x: calc(var(--main-width) / (40 / -19));
+	opacity: 0;
+	transition: var(--trans-opacity);
+}
+
+#Carnival-Booth input:checked ~ #game::before {
+	opacity: 1;
+	animation: fillOutBar var(--main-time-out-game) linear forwards;
+	animation-delay: calc(var(--more-time, 0s) + var(--minus-time, 0s));
+}
+
+@keyframes fillOutBar {
+	to {background-position-x: 0;}
+}
+
+/* Pausa la barra de tiempo después de tres lanzamientos */
+#Carnival-Booth input[type="checkbox"]:checked ~ input[type="checkbox"]:checked ~ input[type="checkbox"]:checked ~ #game::before {
+	animation-play-state: paused;
 }
 
 /* Cuadro para el mensaje */
-#game::after{
+#game::after {
 	content: "";
+	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-family:'Comic Sans', 'Comic Sans MS', cursive;
+	font-family:'Comic Neue', 'Comic Sans', 'Comic Sans MS', cursive;
 	font-size: calc(var(--fila-heigh) * (12 / 25));
 	color: white;
 	background-color: #000d;
-	display: flex;
 	width: 80%;
 	height: 80%;
 	overflow: hidden;
@@ -481,380 +531,56 @@ background:linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
 	z-index: 1;
 	opacity: 0;
 	visibility: hidden;
-	transition: width .3s ease-in-out 10s, height .3s ease-in-out 10s, opacity .3s ease-in-out 10s, visibility 0s linear 10s;
 }
 
 /* Inicialización de tiempo para mostrar mensaje */
-input[type=radio]#pelota1:checked ~ #game::after,
-input[type=radio]#pelota2:checked ~ #game::after,
-input[type=radio]#pelota3:checked ~ #game::after {
+[name="pelota"]:checked ~ #game::after {
+	animation: maxTiempo var(--trans-time) ease-in-out calc(var(--main-time-out-game) + var(--more-time, 0s) + var(--minus-time, 0s)) forwards;
+}
+
+@keyframes maxTiempo {
+	100% {
+		width:100%;
+		height:100%;
+		opacity:1;
+		visibility: visible;
+	}
+}
+
+#game::after { /* 0 patos (sin tiempo) */
+	content: "¡Uy! Que pena";
+}
+
+[id*="pato"]:checked ~ #game::after { /* 1 pato (sin tiempo) */
+	content: "Algo es algo";
+}
+
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ #game::after { /* 2 patos (sin tiempo) */
+	content: "¡A un tiro!";
+}
+
+/* Mostrar mensaje para cuando todas las pelotas son lanzadas en tiempo */
+input[type="checkbox"]:checked ~ input[type="checkbox"]:checked ~ input[type="checkbox"]:checked ~ #game::after {
+	animation: none;
 	width: 100%;
 	height: 100%;
 	opacity: 1;
 	visibility: visible;
+	transition: all var(--trans-time) ease-in-out;
 }
 
-/* Perdistes (sin tiempo) */
-#p1patoA:not(:checked) + #p2patoA:not(:checked) + #p3patoA:not(:checked) +
-#p1patoB:not(:checked) + #p2patoB:not(:checked) + #p3patoB:not(:checked) +
-#p1patoC:not(:checked) + #p2patoC:not(:checked) + #p3patoC:not(:checked) ~ #game::after {content: "Perdistes :´(";}
-/* Un Pato (sin tiempo) */
-#p1patoA:checked ~ #game::after, #p2patoA:checked ~ #game::after, #p3patoA:checked ~ #game::after,
-#p1patoB:checked ~ #game::after, #p2patoB:checked ~ #game::after, #p3patoB:checked ~ #game::after,
-#p1patoC:checked ~ #game::after, #p2patoC:checked ~ #game::after, #p3patoC:checked ~ #game::after {content: "Un Pato :(";}
-/* Dos Patos (sin tiempo)
- A   B     A   C     B   C
- 1 | 2     1 | 2     1 | 2
- 1 | 3     1 | 3     1 | 3
- 2 | 1     2 | 1     2 | 1
- 2 | 3     2 | 3     2 | 3
- 3 | 1     3 | 1     3 | 1
- 3 | 2     3 | 2     3 | 2 */
-#p1patoA:checked ~ #p2patoB:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoB:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoB:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoB:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoB:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoB:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2patoC:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoC:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoC:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoC:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoC:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoC:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2patoC:checked ~ #game::after,
-#p1patoB:checked ~ #p3patoC:checked ~ #game::after,
-#p2patoB:checked ~ #p1patoC:checked ~ #game::after,
-#p2patoB:checked ~ #p3patoC:checked ~ #game::after,
-#p3patoB:checked ~ #p1patoC:checked ~ #game::after,
-#p3patoB:checked ~ #p2patoC:checked ~ #game::after{ content: "Dos Patos :|";}
-
-/* Mensaje para cuando todas las pelotas son lanzadas en tiempo */
-@keyframes entiempo {
-	0% {
-		visibility: hidden;
-		width:80%;
-		height:80%;
-		opacity:0;
-	}
-	100% {
-		visibility: visible;
-		width:100%;
-		height:100%;
-		opacity:1;
-	}
+[id*="errar"]:checked ~ [id*="errar"]:checked ~ [id*="errar"]:checked ~ #game::after { /* 0 patos */
+	content: "Peor que nada";
 }
 
-/* ¡Ganastes! */
-/*
- A   B   C
- 1 | 2 | 3
- 1 | 3 | 2
- 2 | 1 | 3
- 2 | 3 | 1
- 3 | 1 | 2
- 3 | 2 | 1
-*/
-#p1patoA:checked ~ #p2patoB:checked ~ #p3patoC:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoB:checked ~ #p2patoC:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoB:checked ~ #p3patoC:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoB:checked ~ #p1patoC:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoB:checked ~ #p2patoC:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoB:checked ~ #p1patoC:checked ~ #game::after {
-	content: "¡Ganastes! :D";
-	transition: none;
-	animation: entiempo .3s ease-in-out forwards;
-}
-/* Perdistes */
-/*
- A'  B'  C'
- 1 | 2 | 3
- 1 | 3 | 2
- 2 | 1 | 3
- 2 | 3 | 1
- 3 | 1 | 2
- 3 | 2 | 1
-*/
-#p1errarA:checked ~ #p2errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p1errarA:checked ~ #p3errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p2errarA:checked ~ #p1errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p2errarA:checked ~ #p3errarB:checked ~ #p1errarC:checked ~ #game::after,
-#p3errarA:checked ~ #p1errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p3errarA:checked ~ #p2errarB:checked ~ #p1errarC:checked ~ #game::after,
-
-/*
- A'  A'  A'    B'  B'  B'    C'  C'  C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
-*/
-#p1errarA:checked ~ #p2errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p1errarB:checked ~ #p2errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p1errarC:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after,
-
-/*
- A'  A'  B'    A'  A'  C'
- 1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2
- 2 | 3 | 1     2 | 3 | 1
-
- B'  B'  A'    B'  B'  C'
- 1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2
- 2 | 3 | 1     2 | 3 | 1
-
- C'  C'  A'    C'  C'  B'
- 1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2
- 2 | 3 | 1     2 | 3 | 1
-*/
-#p1errarA:checked ~ #p2errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p1errarA:checked ~ #p3errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p2errarA:checked ~ #p3errarA:checked ~ #p1errarB:checked ~ #game::after,
-#p1errarA:checked ~ #p2errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p1errarA:checked ~ #p3errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p2errarA:checked ~ #p3errarA:checked ~ #p1errarC:checked ~ #game::after,
-
-#p3errarA:checked ~ #p1errarB:checked ~ #p2errarB:checked ~ #game::after,
-#p2errarA:checked ~ #p1errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p1errarA:checked ~ #p2errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p1errarB:checked ~ #p2errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p1errarB:checked ~ #p3errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p2errarB:checked ~ #p3errarB:checked ~ #p1errarC:checked ~ #game::after,
-
-#p3errarA:checked ~ #p1errarC:checked ~ #p2errarC:checked ~ #game::after,
-#p2errarA:checked ~ #p1errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p1errarA:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p3errarB:checked ~ #p1errarC:checked ~ #p2errarC:checked ~ #game::after,
-#p2errarB:checked ~ #p1errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p1errarB:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after {
-	content: "Perdistes :´(";
-	transition: none;
-	animation: entiempo .3s ease-in-out forwards;
+[id*="pato"]:checked ~ [id*="errar"]:checked ~ [id*="errar"]:checked ~ #game::after { /* 1 pato */
+	content: "Ni de cerca";
 }
 
-/*
- A   B   A'    A   B   B'    A   B   C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
- 2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
- 3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
-
- A   C   A'    A   C   B'    A   C   C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
- 2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
- 3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
-
- B   C   A'    B   C   B'    B   C   C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
- 2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
- 3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
-*/
-#p1patoA:checked ~ #p2patoB:checked ~ #p3errarA:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoB:checked ~ #p2errarA:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoB:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoB:checked ~ #p1errarA:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoB:checked ~ #p2errarA:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoB:checked ~ #p1errarA:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2patoB:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoB:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoB:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoB:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoB:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoB:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2patoB:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoB:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoB:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoB:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoB:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoB:checked ~ #p1errarC:checked ~ #game::after,
-
-
-#p1patoA:checked ~ #p2patoC:checked ~ #p3errarA:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoC:checked ~ #p2errarA:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoC:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoC:checked ~ #p1errarA:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoC:checked ~ #p2errarA:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoC:checked ~ #p1errarA:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2patoC:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoC:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoC:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoC:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoC:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoC:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2patoC:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoA:checked ~ #p3patoC:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p1patoC:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p3patoC:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p1patoC:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p2patoC:checked ~ #p1errarC:checked ~ #game::after,
-
-
-#p1patoB:checked ~ #p2patoC:checked ~ #p3errarA:checked ~ #game::after,
-#p1patoB:checked ~ #p3patoC:checked ~ #p2errarA:checked ~ #game::after,
-#p2patoB:checked ~ #p1patoC:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoB:checked ~ #p3patoC:checked ~ #p1errarA:checked ~ #game::after,
-#p3patoB:checked ~ #p1patoC:checked ~ #p2errarA:checked ~ #game::after,
-#p3patoB:checked ~ #p2patoC:checked ~ #p1errarA:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2patoC:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoB:checked ~ #p3patoC:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoB:checked ~ #p1patoC:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoB:checked ~ #p3patoC:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoB:checked ~ #p1patoC:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoB:checked ~ #p2patoC:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2patoC:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoB:checked ~ #p3patoC:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p1patoC:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p3patoC:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p1patoC:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p2patoC:checked ~ #p1errarC:checked ~ #game::after {
-	content: "Dos Patos :|";
-	transition: none;
-	animation: entiempo .3s ease-in-out forwards;
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ [id*="errar"]:checked ~ #game::after { /* 2 patos */
+	content: "¡Por un pato!";
 }
-/*
- A   A'  A'    A   B'  B'    A   C'  C'    A   A'  B'    A   A'  C'    A   B'  C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3     1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2     2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
-                                           2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
-                                           3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
-                                           3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
 
- B   A'  A'    B   B'  B'    B   C'  C'    B   A'  B'    B   A'  C'    B   B'  C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3     1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2     2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
-                                           2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
-                                           3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
-                                           3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
-
- C   A'  A'    C   B'  B'    C   C'  C'    C   A'  B'    C   A'  C'    C   B'  C'
- 1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3     1 | 2 | 3
- 2 | 1 | 3     2 | 1 | 3     2 | 1 | 3     1 | 3 | 2     1 | 3 | 2     1 | 3 | 2
- 3 | 1 | 2     3 | 1 | 2     3 | 1 | 2     2 | 1 | 3     2 | 1 | 3     2 | 1 | 3
-                                           2 | 3 | 1     2 | 3 | 1     2 | 3 | 1
-                                           3 | 1 | 2     3 | 1 | 2     3 | 1 | 2
-                                           3 | 2 | 1     3 | 2 | 1     3 | 2 | 1
-*/
-
-#p1patoA:checked ~ #p2errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarA:checked ~ #p2errarA:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarB:checked ~ #p2errarB:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarC:checked ~ #p2errarC:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoA:checked ~ #p3errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoA:checked ~ #p3errarA:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoA:checked ~ #p2errarA:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoA:checked ~ #p3errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p3errarA:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p2errarA:checked ~ #p1errarC:checked ~ #game::after,
-
-#p1patoA:checked ~ #p2errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoA:checked ~ #p3errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p1errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoA:checked ~ #p3errarB:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p1errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoA:checked ~ #p2errarB:checked ~ #p1errarC:checked ~ #game::after,
-/*
------
-*/
-#p1patoB:checked ~ #p2errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarA:checked ~ #p2errarA:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarB:checked ~ #p2errarB:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarC:checked ~ #p2errarC:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoB:checked ~ #p3errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoB:checked ~ #p3errarA:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoB:checked ~ #p2errarA:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoB:checked ~ #p3errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p3errarA:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p2errarA:checked ~ #p1errarC:checked ~ #game::after,
-
-#p1patoB:checked ~ #p2errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoB:checked ~ #p3errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p1errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoB:checked ~ #p3errarB:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p1errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoB:checked ~ #p2errarB:checked ~ #p1errarC:checked ~ #game::after,
-/*
------
-*/
-#p1patoC:checked ~ #p2errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarA:checked ~ #p3errarA:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarA:checked ~ #p2errarA:checked ~ #game::after,
-
-#p1patoC:checked ~ #p2errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarB:checked ~ #p3errarB:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarB:checked ~ #p2errarB:checked ~ #game::after,
-
-#p1patoC:checked ~ #p2errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarC:checked ~ #p3errarC:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarC:checked ~ #p2errarC:checked ~ #game::after,
-
-#p1patoC:checked ~ #p2errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p1patoC:checked ~ #p3errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarA:checked ~ #p3errarB:checked ~ #game::after,
-#p2patoC:checked ~ #p3errarA:checked ~ #p1errarB:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarA:checked ~ #p2errarB:checked ~ #game::after,
-#p3patoC:checked ~ #p2errarA:checked ~ #p1errarB:checked ~ #game::after,
-
-#p1patoC:checked ~ #p2errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoC:checked ~ #p3errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarA:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoC:checked ~ #p3errarA:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarA:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoC:checked ~ #p2errarA:checked ~ #p1errarC:checked ~ #game::after,
-
-#p1patoC:checked ~ #p2errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p1patoC:checked ~ #p3errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p2patoC:checked ~ #p1errarB:checked ~ #p3errarC:checked ~ #game::after,
-#p2patoC:checked ~ #p3errarB:checked ~ #p1errarC:checked ~ #game::after,
-#p3patoC:checked ~ #p1errarB:checked ~ #p2errarC:checked ~ #game::after,
-#p3patoC:checked ~ #p2errarB:checked ~ #p1errarC:checked ~ #game::after {
-	content: "Un Pato :(";
-	transition: none;
-	animation: entiempo .3s ease-in-out forwards;
+[id*="pato"]:checked ~ [id*="pato"]:checked ~ [id*="pato"]:checked ~ #game::after { /* 3 patos */
+	content: "¡Vaya puntería!";
 }

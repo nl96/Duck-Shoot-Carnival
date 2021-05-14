@@ -2,105 +2,114 @@
 <html lang="es">
 
 <head>
-	<title>Duck Shoot Carnival</title>
 	<meta charset="utf-8"/>
+	<title>Duck Shoot Carnival</title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<meta name="keywords" content="Duck, Shoot, Carnival, Game, Pure, CSS"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<meta name="Keywords" content="Duck, Shoot, Carnival, Game, Pure, CSS"/>
-	<link type="image/x-icon" rel="icon" href="favicon.ico">
-	<link type="text/css" media="screen" rel="stylesheet" href="Duck-Shoot.css"/>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital@0;1&family=Kulim+Park:wght@700&display=swap"> 
+	<link rel="stylesheet" media="screen" type="text/css" href="Duck-Shoot.css"/>
 </head>
 
 <body>
 	<div id="Carnival-Booth">
+		<form autocomplete="off">
+			<input hidden type="radio" name="pelota" id="pelota1"/>
+			<input hidden type="radio" name="pelota" id="pelota2"/>
+			<input hidden type="radio" name="pelota" id="pelota3"/>
+			<input hidden type="checkbox" id="p1patoA"/>
+			<input hidden type="checkbox" id="p2patoA"/>
+			<input hidden type="checkbox" id="p3patoA"/>
+			<input hidden type="checkbox" id="p1patoB"/>
+			<input hidden type="checkbox" id="p2patoB"/>
+			<input hidden type="checkbox" id="p3patoB"/>
+			<input hidden type="checkbox" id="p1patoC"/>
+			<input hidden type="checkbox" id="p2patoC"/>
+			<input hidden type="checkbox" id="p3patoC"/>
+			<input hidden type="checkbox" id="p1errarA"/>
+			<input hidden type="checkbox" id="p2errarA"/>
+			<input hidden type="checkbox" id="p3errarA"/>
+			<input hidden type="checkbox" id="p1errarB"/>
+			<input hidden type="checkbox" id="p2errarB"/>
+			<input hidden type="checkbox" id="p3errarB"/>
+			<input hidden type="checkbox" id="p1errarC"/>
+			<input hidden type="checkbox" id="p2errarC"/>
+			<input hidden type="checkbox" id="p3errarC"/>
 
-		<input hidden type="radio" name="pelota" id="pelota1"/>
-		<input hidden type="radio" name="pelota" id="pelota2"/>
-		<input hidden type="radio" name="pelota" id="pelota3"/>
-		<input hidden type="checkbox" id="p1patoA"/>
-		<input hidden type="checkbox" id="p2patoA"/>
-		<input hidden type="checkbox" id="p3patoA"/>
-		<input hidden type="checkbox" id="p1patoB"/>
-		<input hidden type="checkbox" id="p2patoB"/>
-		<input hidden type="checkbox" id="p3patoB"/>
-		<input hidden type="checkbox" id="p1patoC"/>
-		<input hidden type="checkbox" id="p2patoC"/>
-		<input hidden type="checkbox" id="p3patoC"/>
-		<input hidden type="checkbox" id="p1errarA"/>
-		<input hidden type="checkbox" id="p2errarA"/>
-		<input hidden type="checkbox" id="p3errarA"/>
-		<input hidden type="checkbox" id="p1errarB"/>
-		<input hidden type="checkbox" id="p2errarB"/>
-		<input hidden type="checkbox" id="p3errarB"/>
-		<input hidden type="checkbox" id="p1errarC"/>
-		<input hidden type="checkbox" id="p2errarC"/>
-		<input hidden type="checkbox" id="p3errarC"/>
+			<div id="techo">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
 
-		<div id="techo">
-			<div class="lr"></div><div class="lb"></div><div class="lr"></div>
-			<div class="lb"></div><div class="lr"></div><div class="lb"></div>
-			<div class="lr"></div><div class="lb"></div><div class="lr"></div>
-		</div>
-
-		<div id="game">
-			<div id="Fila1">
-				<div class="fondo">
-					<div class="Pato">
-						<div class="acertar">
-							<label for="p1patoA"></label>
-							<label for="p2patoA"></label>
-							<label for="p3patoA"></label>
+			<div id="game">
+				<div id="Fila1">
+					<div class="fondo">
+						<div class="Pato">
+							<div class="acertar">
+								<label for="p1patoA"></label>
+								<label for="p2patoA"></label>
+								<label for="p3patoA"></label>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="errar">
-					<label for="p1errarA"></label>
-					<label for="p2errarA"></label>
-					<label for="p3errarA"></label>
-				</div>
-			</div>
-			<div id="Fila2">
-				<div class="fondo">
-					<div class="Pato">
-						<div class="acertar">
-							<label for="p1patoB"></label>
-							<label for="p2patoB"></label>
-							<label for="p3patoB"></label>
-						</div>
+					<div class="errar">
+						<label for="p1errarA"></label>
+						<label for="p2errarA"></label>
+						<label for="p3errarA"></label>
 					</div>
 				</div>
-				<div class="errar">
-					<label for="p1errarB"></label>
-					<label for="p2errarB"></label>
-					<label for="p3errarB"></label>
-				</div>
-			</div>
-			<div id="Fila3">
-				<div class="fondo">
-					<div class="Pato">
-						<div class="acertar">
-							<label for="p1patoC"></label>
-							<label for="p2patoC"></label>
-							<label for="p3patoC"></label>
+				<div id="Fila2">
+					<div class="fondo">
+						<div class="Pato">
+							<div class="acertar">
+								<label for="p1patoB"></label>
+								<label for="p2patoB"></label>
+								<label for="p3patoB"></label>
+							</div>
 						</div>
 					</div>
+					<div class="errar">
+						<label for="p1errarB"></label>
+						<label for="p2errarB"></label>
+						<label for="p3errarB"></label>
+					</div>
 				</div>
-				<div class="errar">
-					<label for="p1errarC"></label>
-					<label for="p2errarC"></label>
-					<label for="p3errarC"></label>
+				<div id="Fila3">
+					<div class="fondo">
+						<div class="Pato">
+							<div class="acertar">
+								<label for="p1patoC"></label>
+								<label for="p2patoC"></label>
+								<label for="p3patoC"></label>
+							</div>
+						</div>
+					</div>
+					<div class="errar">
+						<label for="p1errarC"></label>
+						<label for="p2errarC"></label>
+						<label for="p3errarC"></label>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div id="mostrador">
-			<div>
-				<label class="pelota" for="pelota1"></label>
-				<label class="pelota" for="pelota2"></label>
-				<label class="pelota" for="pelota3"></label>
+			<div id="mostrador">
+				<div>
+					<label class="pelota" for="pelota1"></label>
+					<label class="pelota" for="pelota2"></label>
+					<label class="pelota" for="pelota3"></label>
+				</div>
 			</div>
-		</div>
 
-		<div id="pared"><a href="">Reiniciar</a></div>
+			<div id="pared"><input type="reset" value="Reiniciar"></div>
+		</form>
 	</div>
 </body>
 </html>
