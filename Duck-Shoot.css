@@ -32,11 +32,11 @@ body {
 /* Patrón principal */
 #techo, #pared {
 	background: linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)),
-				linear-gradient(90deg, red 0, red calc(100% / 9), white 0, white calc(200% / 9),
-									   red 0, red calc(300% / 9), white 0, white calc(400% / 9),
-									   red 0, red calc(500% / 9), white 0, white calc(600% / 9),
-									   red 0, red calc(700% / 9), white 0, white calc(800% / 9),
-									   red 0, red 100%);
+		    linear-gradient(90deg, red 0, red calc(100% / 9), white 0, white calc(200% / 9),
+					   red 0, red calc(300% / 9), white 0, white calc(400% / 9),
+					   red 0, red calc(500% / 9), white 0, white calc(600% / 9),
+					   red 0, red calc(700% / 9), white 0, white calc(800% / 9),
+					   red 0, red 100%);
 }
 
 #techo {
@@ -236,8 +236,9 @@ body {
 #mostrador .pelota:nth-child(3) {left: 50%; margin: calc(var(--pelota-lengthsquare) * (3 / 15));}
 
 .pelota:hover {
+	background-color: white;
 	cursor: -webkit-grab;
-	cursor: grab; background-color: white;
+	cursor: grab;
 }
 
 .pelota:active {
@@ -261,14 +262,16 @@ body {
 	padding: calc(var(--fila-heigh) * (3 / 60));
 	border: calc(var(--fila-heigh) * (1 / 60)) solid red;
 	border-radius: calc(var(--fila-heigh) * (3 / 60));
-	background-color: white;
-	background: linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)), linear-gradient(#FFF, #FFF);
+	background-image: linear-gradient(0deg, rgba(0,0,0,0.0375), rgba(0,0,0,0.0625)), white;
 	opacity: 0;
-	visibility: hidden;	
+	visibility: hidden;
+}
+
+#pared input[type="reset"]:hover {
+	background-color: white;
 }
 
 #pared input[type="reset"]:focus {
-	background: linear-gradient(#FFF, #FFF);
 	transition: var(--trans-opacity), var(--trans-delay-vis);
 }
 
@@ -325,9 +328,9 @@ body {
 [id$="patoB"]:checked ~ div #Fila2 .Pato,
 [id$="patoC"]:checked ~ div #Fila3 .Pato {
 	background-image: url(boom-duck.svg);
-	bottom: calc(var(--pato-lengthsquare) * -1);
+	bottom: calc(var(--pato-lengthsquare) / -0.75);
 	opacity: 0;
-	transition: opacity .6s ease-in-out, bottom .4s linear;
+	transition: opacity .5s ease-in, bottom .6s linear;
 }
 
 /* Efecto del impacto de la pelota */
@@ -343,14 +346,13 @@ body {
 	background-color: whitesmoke;
 	box-shadow: var(--pelota-shandow);
 	visibility: hidden;
-	transition: top .4s linear, right .3s ease-in-out;
+	transition: top .6s cubic-bezier(.25,.5,.5,.75);
 }
 
 [id$="patoA"]:checked ~ div #Fila1 .Pato::after,
 [id$="patoB"]:checked ~ div #Fila2 .Pato::after,
 [id$="patoC"]:checked ~ div #Fila3 .Pato::after {
 	top: calc(var(--pato-lengthsquare) * -1);
-	right: calc(var(--pato-lengthsquare) / (16 / 11));
 	visibility: visible;
 }
 
@@ -395,15 +397,12 @@ body {
 	position: absolute;
 	left: 2.5%;
 	z-index: 2;
-	background-color: transparent;
-	background-image: url(duck.svg);
-	background-repeat: no-repeat;
-	background-size: contain;
+	background: url(duck.svg) left/contain no-repeat;
 	transform-origin: 50% 100%;
 	transform: translate(50%, 50%) rotateX(-90deg);
 	opacity: 0;
 	visibility: hidden;
-	/* Plegar icono de pato abatido (reinicio) */
+	/* Pliega icono de pato abatido (reinicio) */
 	transition: var(--trans-opacity), transform var(--trans-time) ease-in-out, var(--trans-delay-vis);
 }
 #Fila1::before {top: calc(var(--fila-heigh) * -1);}
@@ -488,9 +487,8 @@ body {
 	height: calc(var(--fila-heigh) / 5);
 	border: calc(var(--fila-heigh) / 36) solid black;
 	border-radius: calc(var(--fila-heigh) / 5);
-	background: linear-gradient(#FFF000, #FFF000) no-repeat, linear-gradient(black, black);
-	background-color: #FFF000;
-	background-position-x: calc(var(--main-width) / (40 / -19));
+	background: linear-gradient(#fff000, #fff000) no-repeat, black;
+	background-position: calc(var(--main-width) / (40 / -19));
 	opacity: 0;
 	transition: var(--trans-opacity);
 }
@@ -502,7 +500,7 @@ body {
 }
 
 @keyframes fillOutBar {
-	to {background-position-x: 0;}
+	to {background-position: initial;}
 }
 
 /* Pausa la barra de tiempo después de tres lanzamientos */
